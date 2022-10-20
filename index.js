@@ -5,12 +5,16 @@ const app = express();
 
 const PORT = 8080;
 
-const password = fs.readFileSync('./pwd.txt', 'utf8', function (err,data) {
-    if (err) {
-      return console.err(err);
-    }
-    console.log(data);
-  });
+if (!process.env.POST_PASSWORD) {
+    const password = fs.readFileSync("./pwd.txt", "utf8", function (err, data) {
+        if (err) {
+            return console.err(err);
+        }
+        console.log(data);
+    });
+} else {
+    const password = process.env.POST_PASSWORD;
+}
 
 app.use(express.json());
 
@@ -38,7 +42,6 @@ app.get("/games/:id", (req, res) => {
         version: gameData.version,
         download: gameData.download,
     });
-
 });
 
 app.post("/games/:id", (req, res) => {
@@ -62,8 +65,8 @@ app.post("/games/:id", (req, res) => {
             id: id,
         });
     } else if (pwd) {
-        res.status(403).send({message: 'Incorrect password'});
+        res.status(403).send({ message: "Incorrect password" });
     } else {
-        res.status(401).send({message: 'Please supply a password in the pwd field'});
+        res.status(401).send({ message: "Please supply a password in the pwd field" });
     }
 });

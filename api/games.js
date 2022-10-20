@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     const id = req.params.id;
 
     try {
-        fileContents = fs.readFileSync(`data/games/${id}.json`, "utf-8");
+        fileContents = fs.readFileSync(process.cwd() + `data/games/${id}.json`, "utf-8");
         gameData = JSON.parse(fileContents);
 
         res.json({
@@ -32,7 +32,7 @@ router.get("/:id", (req, res) => {
         return res.status(404).send({
             status: 404,
             message: "Not Found!",
-            path: __dirname + `/data/games/${id}.json`
+            path: process.cwd() + `/data/games/${id}.json`
         });
     }
 
@@ -47,11 +47,11 @@ router.post("/:id", (req, res) => {
     }
 
     if (pwd == password) {
-        fs.mkdir("data/games", { recursive: true }, (err) => {
+        fs.mkdir(process.cwd() + "data/games", { recursive: true }, (err) => {
             console.err(err);
         });
 
-        fs.writeFile(`data/games/${id}.json`, JSON.stringify(req.body), (err) => {
+        fs.writeFile(process.cwd() + `data/games/${id}.json`, JSON.stringify(req.body), (err) => {
             console.err(err);
         });
 

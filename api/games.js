@@ -44,19 +44,19 @@ router.post("/:id", (req, res) => {
     const { displayName, author, version, download, pwd } = req.body;
 
     if (!displayName || !author || !version || !download) {
-        res.status(418).send({ message: "Missing 1 or more parameters! Check you have included displayName, author, version and download URL." });
+        res.status(400).send({ message: "Missing 1 or more parameters! Check you have included displayName, author, version and download URL." });
     }
 
     if (pwd == password) {
         fs.mkdir("../data/games", { recursive: true }, (err) => {
-            console.err(err);
+            console.error(err);
         });
 
         fs.writeFile(`../data/games/${id}.json`, JSON.stringify(req.body), (err) => {
-            console.err(err);
+            console.error(err);
         });
 
-        res.status(201).json({
+        res.status(201).send({
             id: id,
         });
     } else if (pwd) {
@@ -64,6 +64,11 @@ router.post("/:id", (req, res) => {
     } else {
         res.status(401).send({ message: "Please supply a password in the pwd field" });
     }
+
+    res.status(503).send({ 
+        status: "503",
+        message: "Unknown Error"
+    });
 });
 
 module.exports = router;

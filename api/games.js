@@ -31,7 +31,8 @@ router.get("/:id", (req, res) => {
     } catch (err) {
         return res.status(404).send({
             status: 404,
-            message: "Not Found!"
+            message: "Not Found!",
+            path: __dirname + `/data/games/${id}.json`
         });
     }
 

@@ -19,10 +19,10 @@ router.get("/:id", (req, res) => {
     const id = req.params.id;
 
     try {
-        fileContents = fs.readFileSync(`/data/games/${id}.json`, "utf-8");
+        fileContents = fs.readFileSync(`data/games/${id}.json`, "utf-8");
         gameData = JSON.parse(fileContents);
     } catch (err) {
-        return res.sendStatus(404);
+        return res.status(404).send(err);
     }
 
     res.json({

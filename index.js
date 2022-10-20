@@ -20,4 +20,8 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
+app.get("/status", (req, res) => {
+    res.status(200).json({status: "200", message: "Working fine so far!"});
+});
+
 module.exports = app;

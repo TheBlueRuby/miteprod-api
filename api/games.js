@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
     const id = req.params.id;
 
     try {
-        fileContents = fs.readFileSync(`data/games/${id}.json`, "utf-8");
+        fileContents = fs.readFileSync(__dirname + `/data/games/${id}.json`, "utf-8");
         gameData = JSON.parse(fileContents);
     } catch (err) {
         return res.status(404).send(err);
@@ -42,11 +42,11 @@ router.post("/games/:id", (req, res) => {
     }
 
     if (pwd == password) {
-        fs.mkdir("data/games", { recursive: true }, (err) => {
+        fs.mkdir(__dirname + "/data/games", { recursive: true }, (err) => {
             console.err(err);
         });
 
-        fs.writeFile(`data/games/${id}.json`, JSON.stringify(req.body), (err) => {
+        fs.writeFile(__dirname + `/data/games/${id}.json`, JSON.stringify(req.body), (err) => {
             console.err(err);
         });
 

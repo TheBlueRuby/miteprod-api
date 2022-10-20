@@ -7,17 +7,17 @@ const PORT = process.env.PORT || 8080;
 
 const password = process.env.POST_PASSWORD;
 
-const games = require('./api/games');
+const games = require(__dirname + '/api/games');
 
 app.use(express.json());
 app.use(express.static('public'));
 
-app.use("/api/games", games);
+app.use(__dirname + "/api/games", games);
 
 app.listen(PORT, () => console.log(`Working on Port ${PORT}`));
 
 app.get("/", (req, res) => {
-    res.sendFile("public/index.html");
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 module.exports = app;

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const express = require("express");
-const { path } = require('..');
+const path = require('path');
 const router = express.Router();
 
 const password = process.env.POST_PASSWORD;

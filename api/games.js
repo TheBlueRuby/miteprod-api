@@ -21,16 +21,20 @@ router.get("/:id", (req, res) => {
     try {
         fileContents = fs.readFileSync(`data/games/${id}.json`, "utf-8");
         gameData = JSON.parse(fileContents);
+
+        res.json({
+            displayName: gameData.displayName,
+            author: gameData.author,
+            version: gameData.version,
+            download: gameData.download,
+        });
     } catch (err) {
-        return res.status(404).send(err);
+        return res.status(404).send({
+            status: 404,
+            message: "Not Found!"
+        });
     }
 
-    res.json({
-        displayName: gameData.displayName,
-        author: gameData.author,
-        version: gameData.version,
-        download: gameData.download,
-    });
 });
 
 router.post("/:id", (req, res) => {

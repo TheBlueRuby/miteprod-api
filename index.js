@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.listen(PORT, () => console.log(`Working on Port ${PORT}`));
 
 app.get("/", (req, res) => {
-    res.sendFile("index.html", { root: path.join(__dirname, "public") });
+    res.sendFile("public/index.html");
 });
 
 app.get("/games", (req, res) => {

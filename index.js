@@ -12,7 +12,7 @@ const games = require(__dirname + '/api/games');
 app.use(express.json());
 app.use(express.static('public'));
 
-app.use(__dirname + "/api/games", games);
+app.use("/games", games);
 
 app.listen(PORT, () => console.log(`Working on Port ${PORT}`));
 

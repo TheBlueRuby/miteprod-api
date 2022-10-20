@@ -3,18 +3,9 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-if (!process.env.POST_PASSWORD) {
-    const password = fs.readFileSync("./pwd.txt", "utf8", function (err, data) {
-        if (err) {
-            return console.err(err);
-        }
-        console.log(data);
-    });
-} else {
-    const password = process.env.POST_PASSWORD;
-}
+const password = process.env.POST_PASSWORD;
 
 app.use(express.json());
 

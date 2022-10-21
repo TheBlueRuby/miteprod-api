@@ -8,7 +8,7 @@ const password = process.env.POST_PASSWORD;
 router.get("/", (req, res) => {
     try {
         res.json({
-            games: ["apocdoom", "bkrooms-first-contact"],
+            games: ["apocdoom", "bkrooms-first-contact", "bkrooms-first-contact-scratch"],
         });
     } catch (err) {
         console.error(err);

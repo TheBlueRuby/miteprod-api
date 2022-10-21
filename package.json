@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "API for requesting things about Mite Productions",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBlueRuby/miteprod-api.git"
   },
   "author": "Mite Productions",
   "license": "ISC",

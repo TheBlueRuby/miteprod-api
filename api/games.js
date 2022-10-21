@@ -50,10 +50,18 @@ router.post("/:id", (req, res) => {
     if (pwd == password) {
         fs.mkdir("api/data/games", { recursive: true }, (err) => {
             console.error(err);
+            res.status(500).json({
+                status: "500",
+                message: `Error, Could Not Create api/data/games/ !`
+            });
         });
 
         fs.writeFile(`api/data/games/${id}.json`, JSON.stringify(req.body), (err) => {
             console.error(err);
+            res.status(500).json({
+                status: "500",
+                message: `Error, Could Not Create api/data/games/${id}.json !`
+            });
         });
 
         res.status(201).send({

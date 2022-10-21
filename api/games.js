@@ -28,6 +28,8 @@ router.get("/:id", (req, res) => {
             author: gameData.author,
             version: gameData.version,
             download: gameData.download,
+            img: gameData.img,
+            desc: gameData.desc,
         });
     } catch (err) {
         return res.status(404).send({

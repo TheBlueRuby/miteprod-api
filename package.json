@@ -4,7 +4,7 @@
   "description": "API for requesting things about Mite Productions",
   "main": "index.js",
   "engines": {
-    "node": "14.x"
+    "node": "19.x"
   },
   "scripts": {
     "start": "node index.js"

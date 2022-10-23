@@ -1,9 +1,7 @@
-const fs = require("fs");
 const express = require("express");
-const path = require("path");
 const router = express.Router();
 
-const password = process.env.POST_PASSWORD;
+//const password = process.env.POST_PASSWORD;
 
 router.get("/", (req, res) => {
     try {
@@ -20,7 +18,7 @@ router.get("/:id", (req, res) => {
     const id = req.params.id;
 
     try {
-        fileContents = fs.readFileSync(`/tmp/api/data/games/${id}.json`, "utf-8");
+        fileContents = grabData(`https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`);
         gameData = JSON.parse(fileContents);
 
         res.json({
@@ -35,11 +33,13 @@ router.get("/:id", (req, res) => {
         return res.status(404).send({
             status: 404,
             message: "Not Found!",
-            path: path.resolve(`/tmp/api/data/games/${id}.json`),
+            path: `https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`,
         });
     }
 });
 
+//commented for github file hosting
+/*
 router.post("/:id", (req, res) => {
     const { id } = req.params;
     const { displayName, author, version, download, pwd } = req.body;
@@ -78,6 +78,16 @@ router.post("/:id", (req, res) => {
     } else {
         res.status(401).send({ message: "Please supply a password in the pwd field" });
     }
-});
+});*/
 
 module.exports = router;
+
+async function grabData(apiUrl) {
+    try {
+        let res = await fetch(apiUrl);
+        return await res.json();
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}

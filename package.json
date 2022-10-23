@@ -4,7 +4,7 @@
   "description": "API for requesting things about Mite Productions",
   "main": "index.js",
   "engines": {
-    "node": "19.x"
+    "node": "16.x"
   },
   "scripts": {
     "start": "node index.js"
@@ -16,6 +16,7 @@
   "author": "Mite Productions",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7"
   }
 }

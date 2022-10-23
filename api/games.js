@@ -15,12 +15,12 @@ router.get("/", (req, res) => {
     }
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
     try {
-        fileContents = grabData(`https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`);
-        gameData = JSON.parse(fileContents);
+        gameData = await grabData(`https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`);
+        console.log(gameData);
 
         res.json({
             displayName: gameData.displayName,

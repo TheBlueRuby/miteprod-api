@@ -3,6 +3,8 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 
+require('dotenv').config();
+
 const PORT = process.env.PORT || 8080;
 
 const password = process.env.POST_PASSWORD;

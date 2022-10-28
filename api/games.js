@@ -2,12 +2,17 @@ const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
 
+require("dotenv").config();
+
+import supabase from "../supabase-client.js";
+
 //const password = process.env.POST_PASSWORD;
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
     try {
+        let { data: games, error } = await supabase.from("games").select("*");
         res.json({
-            games: ["apocdoom", "bkrooms-first-contact", "bkrooms-first-contact-scratch"],
+            games: games,
         });
     } catch (err) {
         console.error(err);
@@ -19,22 +24,36 @@ router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
     try {
-        gameData = await grabData(`https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`);
-        console.log(gameData);
+        let { data: games, error } = await supabase.from("games").select("*");
+        console.log(games);
+
+        let gameIdIndex;
+
+        for (let i = 0; i < games.length; i++) {
+            let gameID = games[i].id;
+            if (gameID == id) {
+                gameIdIndex = i;
+                break;
+            }
+        }
+
+        games = games[gameIdIndex];
+        console.log(games);
 
         res.json({
-            displayName: gameData.displayName,
-            author: gameData.author,
-            version: gameData.version,
-            download: gameData.download,
-            img: gameData.img,
-            desc: gameData.desc,
+            displayName: games.displayName,
+            author: games.author,
+            version: games.version,
+            download: games.download,
+            img: games.img,
+            desc: games.desc,
         });
     } catch (err) {
-        return res.status(404).send({
-            status: 404,
-            message: "Not Found!",
-            path: `https://raw.githubusercontent.com/TheBlueRuby/miteprod-api/master/data/games/${id}.json`,
+        console.error(err);
+        return res.status(500).send({
+            status: 500,
+            message: "Unknown Error!",
+            error: err,
         });
     }
 });

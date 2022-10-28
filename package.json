@@ -16,6 +16,8 @@
   "author": "Mite Productions",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.0.4",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "node-fetch": "^2.6.7"
   }
